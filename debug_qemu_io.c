@@ -3,6 +3,8 @@
 	> Author:jusonalien 
 	> Mail:jusonalien@qq.com 
 	> Created Time: Wed 26 Aug 2015 07:16:14 PM KST
+	> Description: We use this program to detect and debug the path of 
+		       the Qemu disk IO.
  ************************************************************************/
 
 /*---------------------------------*/
