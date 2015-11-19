@@ -114,7 +114,7 @@ static ssize_t vmdb_cache_pwrite(int fd, void *buf, size_t nbytes, off_t offset)
         tmpNode = &page_node_pool[current_pos];
         tmpNode->buf = buf_pool + current_pos*IOGRANT;
         insert_this_write(&current_list, &current_portal, tmpNode,
-                          offset + cur_offset, IOGRANT, (const char*)buf + cur_offset);
+                          offset + cur_offset, IOGRANT, buf + cur_offset);
         current_pos++;
         if(current_pos == GEARCACHE_UPPER_LIMIT - 1) {
             //list_tran(&current_list);
@@ -124,7 +124,7 @@ static ssize_t vmdb_cache_pwrite(int fd, void *buf, size_t nbytes, off_t offset)
         }
     } else {
         PrintInfo("/home/over_write.txt","size and offset",IOGRANT,offset + cur_offset);
-        overwrite_this_write(tmpNode, offset + cur_offset, tmpNode->size, (const char *)buf + cur_offset);
+        overwrite_this_write(tmpNode, offset + cur_offset, tmpNode->size, buf + cur_offset);
     }
     cur_offset += IOGRANT;
     }
