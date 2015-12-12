@@ -7,8 +7,9 @@
 
 # About
 
-we are now adding a cache system under the qemu-kvm virtulazation's block layer to get a higher performance which is named gear-cache,now the cache system is running properly.But it's performance still not achieved the requests :(.
+We are now adding a cache system under the qemu-kvm virtulazation's block layer to get a higher performance which is named gear-cache,now the cache system is running properly.But it's performance still not achieved the requests :(.
 
+# How to use it?
 
 # Lisence
 - MIT
