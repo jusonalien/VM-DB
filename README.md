@@ -11,5 +11,5 @@ We are now adding a cache system under the qemu-kvm virtulazation's block layer 
 
 # How to use it?
 
-# Licence
-  [MIT](LICENSE)
+# Licencse
+  [MIT](https://opensource.org/licenses/MIT)
