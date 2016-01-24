@@ -19,9 +19,9 @@ If you use the instruction script to start the vm,adjust the parameters like thi
 ```sh
 -drive file=centos7.img,if=virtio,aio=threads,cache=none
 ```
-- to avoid the host page cache system,and using our own lightweight cache system
+Bypassing the host page cache system,and using our own lightweight cache system on the block layer.
 
-the following script is used to start our vms.
+The following script is used to start our vms.
 
 ```sh
 qemu -enable-kvm \
