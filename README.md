@@ -11,7 +11,27 @@ We are now adding a cache system under the qemu-kvm virtulazation's block layer 
 
 # How to use it?
 
-just put the source files in the core code directory to the qemu's sorce code(qemu-2.4.0/block),then just compile the qemu source code as usual
+just put the source files in the core code directory to the qemu's sorce code(qemu-2.4.0/block),replace the old raw-posix.c with our new raw-posix.c .Then just compile the qemu source code as usual
+
+If you use the instruction script to start the vm,adjust the parameters like this:
+
+
+```sh
+-drive file=centos7.img,if=virtio,aio=threads,cache=none
+```
+- to avoid the host page cache system,and using our own lightweight cache system
+
+the following script is used to start our vms.
+
+```sh
+qemu -enable-kvm \
+-m 1024 \
+-smp 2 \
+-netdev type=tap,script=/etc/qemu-ifup,downscript=no,id=net0 \
+-device virtio-net-pci,netdev=net0,mac=00:11:22:33:22:FF \
+-drive file=centos7.img,if=virtio,aio=threads,cache=none \
+-nographic
+```
 
 # License
   [MIT](https://opensource.org/licenses/MIT)
