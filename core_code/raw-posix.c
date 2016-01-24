@@ -778,16 +778,16 @@ inline int flush_heap_all(int file_fd,
     page_node_t *node;
     int n;
     int i;
-    PrintInfo("/home/qemu.txt", "Start--flush", 0, 0);
+    //PrintInfo("/home/qemu.txt", "Start--flush", 0, 0);
     for(i = 1; i <= Node_num; ++i) {
         node = list_entry(head[i],page_node_t,list);
 
         n = pwrite(file_fd,node->buf,node->size,node->pageAddr);
-        PrintInfo("/home/qemu.txt", "flush disk pwrite_sizef and offset", n, node->pageAddr);
+        //PrintInfo("/home/qemu.txt", "flush disk pwrite_sizef and offset", n, node->pageAddr);
         clean_stale_write(node, this_portal, node->pageAddr);
     }
 
-    PrintInfo("/home/qemu.txt", "Stop---flush", 0, 0);
+    //PrintInfo("/home/qemu.txt", "Stop---flush", 0, 0);
     return 0;
 }
 
@@ -810,7 +810,7 @@ static int raw_open(BlockDriverState *bs, QDict *options, int flags,
     memset(page_node_pool, 0, sizeof(page_node_t) * GEARCACHE_UPPER_LIMIT);
 
     /*------------------------------------------------------*/
-    PrintInfo("/home/qemu.txt", "OPEN---------------IMAGE", 0, 0);
+    //PrintInfo("/home/qemu.txt", "OPEN---------------IMAGE", 0, 0);
     BDRVRawState *s = bs->opaque;
     Error *local_err = NULL;
     int ret;
@@ -1144,7 +1144,7 @@ static ssize_t handle_aiocb_rw_linear(RawPosixAIOData *aiocb, char *buf)
             len = IOGrant;
             tmpNode = search_in_gearcache(aiocb->aio_offset + cur_offset, &current_portal);
             if (!tmpNode) {
-                PrintInfo("/home/qemu.txt", "pwirte NO-HIT IOGrant and offset", IOGrant, aiocb->aio_offset + cur_offset);
+                //PrintInfo("/home/qemu.txt", "pwirte NO-HIT IOGrant and offset", IOGrant, aiocb->aio_offset + cur_offset);
                 tmpNode = & page_node_pool[current_pos];
                 tmpNode->buf = buf_pool + (current_pos * 1024); // 1024 bytes data
                 insert_this_write(&current_list, &current_portal, tmpNode,
@@ -1159,7 +1159,7 @@ static ssize_t handle_aiocb_rw_linear(RawPosixAIOData *aiocb, char *buf)
                     //INIT_LIST_HEAD(&current_list);
                 }
             } else {
-                PrintInfo("/home/qemu.txt", "pwrite HIT pwrite_sizef and offset", IOGrant, aiocb->aio_offset + cur_offset);
+                //PrintInfo("/home/qemu.txt", "pwrite HIT pwrite_sizef and offset", IOGrant, aiocb->aio_offset + cur_offset);
                 //overwrite_this_write(tmpNode, aiocb->aio_offset + cur_offset, tmpNode->size, (char *)buf + cur_offset);
                 overwrite_this_write(tmpNode, aiocb->aio_offset + cur_offset, IOGrant, (char *)buf + cur_offset);
             }
@@ -1173,14 +1173,14 @@ static ssize_t handle_aiocb_rw_linear(RawPosixAIOData *aiocb, char *buf)
             tmpNode = search_in_gearcache(aiocb->aio_offset + cur_offset, &current_portal);
             if (!tmpNode) {
 
-                PrintInfo("/home/qemu.txt", "pread NOT hit IOGrant and offset", IOGrant, aiocb->aio_offset + cur_offset);
+                //PrintInfo("/home/qemu.txt", "pread NOT hit IOGrant and offset", IOGrant, aiocb->aio_offset + cur_offset);
                 len = pread(aiocb->aio_fildes,
                         buf + cur_offset,
                         IOGrant,
                         aiocb->aio_offset + cur_offset);
             } else {
 
-                PrintInfo("/home/qemu.txt", "pread hit IOGrant and offset", IOGrant, aiocb->aio_offset + cur_offset);
+                //PrintInfo("/home/qemu.txt", "pread hit IOGrant and offset", IOGrant, aiocb->aio_offset + cur_offset);
                 //memcpy(buf + cur_offset, tmpNode->buf, IOGrant);
                 if (IOGrant <= tmpNode->size)
                     memcpy(buf + cur_offset, tmpNode->buf, IOGrant);
