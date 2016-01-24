@@ -67,7 +67,6 @@ inline int clean_stale_write(page_node_t *tmpNode,
 					 gc_portal *gc_pl,
 					 off_t offset)
 {
-
 	list_del( &(tmpNode->list) );
 	radix_tree_delete(gc_pl, offset);
 
@@ -81,8 +80,6 @@ inline int insert_this_write(gc_list *gl,
 					 int size, char *buf)
 {
 	off_t index;
-
-
 	memcpy(tmpNode->buf, buf, size);
 	tmpNode->pageAddr = offset;
 	tmpNode->size = size;
@@ -163,13 +160,13 @@ void SortHeap(void)
     int i;
 
 	for(i = Node_num/2; i>0; --i)
-	HeapAdjust(i,Node_num);
+	   HeapAdjust(i,Node_num);
 
 	for(i = Node_num; i>1; --i){
-     t = p_head[1];
-     p_head[1] = p_head[i];
-     p_head[i] = t;
-     HeapAdjust(1,i-1);
+        t = p_head[1];
+        p_head[1] = p_head[i];
+        p_head[i] = t;
+        HeapAdjust(1,i-1);
 	}
 
 }
