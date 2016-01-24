@@ -11,5 +11,7 @@ We are now adding a cache system under the qemu-kvm virtulazation's block layer 
 
 # How to use it?
 
+just put the source files in the core code directory to the qemu's sorce code(qemu-2.4.0/block),then just compile the qemu source code as usual
+
 # License
   [MIT](https://opensource.org/licenses/MIT)
