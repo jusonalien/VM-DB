@@ -44,8 +44,8 @@ unsigned long Node_num;
 void list_tran(gc_list*);
 void Sort_dui(void);
 inline int flush_heap_all(int file_fd,
-						  gc_list *,
-			              gc_portal *);
+                          gc_list *,
+                          gc_portal *);
 
 inline page_node_t *search_in_gearcache(uint64_t offset, gc_portal *portal)
 {
@@ -59,8 +59,8 @@ inline page_node_t *search_in_gearcache(uint64_t offset, gc_portal *portal)
 }
 
 inline int clean_stale_write(page_node_t *tmpNode,
-					 gc_portal *gc_pl,
-					 uint64_t offset)
+                             gc_portal *gc_pl,
+                             uint64_t offset)
 {
 	list_del(&(tmpNode->list));
 	radix_tree_delete(gc_pl, offset);
@@ -68,10 +68,10 @@ inline int clean_stale_write(page_node_t *tmpNode,
 }
 
 inline int insert_this_write(gc_list *gl, //current_list
-                     gc_portal *gp,
-					 page_node_t *tmpNode,
-					 uint64_t offset,
-					 int size, char *buf)
+                             gc_portal *gp,
+                             page_node_t *tmpNode,
+                             uint64_t offset,
+                             int size, char *buf)
 {
 	unsigned long index;
 
