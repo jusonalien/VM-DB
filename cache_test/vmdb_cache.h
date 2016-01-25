@@ -23,7 +23,7 @@
 #define GEARCACHE_UPPER_LIMIT  131072 // allocate 64MB
 
 typedef struct page_node {
-	uint64_t 	pageAddr;
+	uint64_t 	  pageAddr;
 	int           size;
 	char*         buf;
 	gc_list       list;
@@ -44,8 +44,8 @@ unsigned long Node_num;
 void list_tran(gc_list*);
 void Sort_dui(void);
 inline int flush_heap_all(int file_fd,
-			  gc_list *,
-			  gc_portal *);
+						  gc_list *,
+			              gc_portal *);
 
 inline page_node_t *search_in_gearcache(uint64_t offset, gc_portal *portal)
 {
@@ -62,10 +62,8 @@ inline int clean_stale_write(page_node_t *tmpNode,
 					 gc_portal *gc_pl,
 					 uint64_t offset)
 {
-
-	list_del( &(tmpNode->list) );
+	list_del(&(tmpNode->list));
 	radix_tree_delete(gc_pl, offset);
-
 	return 0;
 }
 
@@ -77,7 +75,6 @@ inline int insert_this_write(gc_list *gl, //current_list
 {
 	unsigned long index;
 
-
 	memcpy(tmpNode->buf, buf, size);
 	tmpNode->pageAddr = offset;
 	tmpNode->size = size;
@@ -85,10 +82,8 @@ inline int insert_this_write(gc_list *gl, //current_list
 	index = offset;
 
 	if ( radix_tree_insert(gp,index,tmpNode) == 0){
-
 		list_add_tail( &(tmpNode->list), gl );
 		return 0;
-
 	}
 	else
 	    return 1;
@@ -131,7 +126,7 @@ void HeapAdjust(int s,int m)
 
     rc= p_head[s];
 
-    for(j=2*s;j<=m;j*=2){
+    for(j = 2*s;j <= m;j *= 2){
 
 		node_m = list_entry(p_head[j], page_node_t, list);
 		node_n = list_entry(p_head[j+1], page_node_t, list);
@@ -152,19 +147,19 @@ void HeapAdjust(int s,int m)
     p_head[s]=rc;
 }
 
-void Sort_dui(void)
+void SortHeap(void)
 {
     gc_list *t = NULL;
     int i;
 
 	for(i = Node_num/2; i>0; --i)
-	HeapAdjust(i,Node_num);
+		HeapAdjust(i,Node_num);
 
 	for(i = Node_num; i>1; --i){
-     t = p_head[1];
-     p_head[1] = p_head[i];
-     p_head[i] = t;
-     HeapAdjust(1,i-1);
+		t = p_head[1];
+		p_head[1] = p_head[i];
+		p_head[i] = t;
+		HeapAdjust(1,i-1);
 	}
 
 }

@@ -118,7 +118,7 @@ static ssize_t vmdb_cache_pwrite(int fd, void *buf, size_t nbytes, off_t offset)
         current_pos++;
         if(current_pos == GEARCACHE_UPPER_LIMIT - 1) {
             //list_tran(&current_list);
-            //Sort_dui();
+            //SortHeap();
             flush_heap_all(fd, &current_list, &current_portal);
             current_pos = 0;
         }
@@ -133,7 +133,7 @@ static ssize_t vmdb_cache_pwrite(int fd, void *buf, size_t nbytes, off_t offset)
 static int raw_close(int file_fd)
 {
    //list_tran(&current_list);
-   //Sort_dui();
+   //SortHeap();
    flush_heap_all(file_fd, &current_list, &current_portal);
    free(page_node_pool);
    free(buf_pool);
@@ -150,15 +150,15 @@ inline int flush_heap_all(int file_fd,
     gc_list *p = NULL;
     page_node_t *node;
     int n;
-    PrintInfo("/home/flush.log","----Start Flush----", 0, 0);
+    //PrintInfo("/home/flush.log","----Start Flush----", 0, 0);
     for(p = head->next; p != head; p = p->next) {
             node = list_entry(p,page_node_t,list);
             lseek(file_fd, node->pageAddr, SEEK_SET);
             n = write(file_fd, node->buf, node->size);
             //n = pwrite(file_fd,node->buf,node->size,node->pageAddr);
-        PrintInfo("/home/flush.log","return_size and pageaddr", n, node->pageAddr);
+        //PrintInfo("/home/flush.log","return_size and pageaddr", n, node->pageAddr);
             clean_stale_write(node, this_portal, node->pageAddr);
     }
-    PrintInfo("/home/flush.log","----Stop Flush----", 0, 0);
+    //PrintInfo("/home/flush.log","----Stop Flush----", 0, 0);
 	return 0;
 }
