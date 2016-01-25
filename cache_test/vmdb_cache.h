@@ -91,8 +91,8 @@ inline int insert_this_write(gc_list *gl, //current_list
 }
 
 inline int overwrite_this_write(page_node_t *tmpNode,
-						uint64_t offset,
-						int size, char *buf)
+                                uint64_t offset,
+                                int size, char *buf)
 {
 
 	memcpy(tmpNode->buf, buf, size);
@@ -103,17 +103,17 @@ inline int overwrite_this_write(page_node_t *tmpNode,
 
 void list_tran(gc_list* head)
 {
-	int i = 0;
-	gc_list *p = NULL;
-  	Node_num = 0;
+    int i = 0;
+    gc_list *p = NULL;
+    Node_num = 0;
 
-	for(p = head->next; p != head; p = p->next)
-		++Node_num;
+    for(p = head->next; p != head; p = p->next)
+        ++Node_num;
 
-	p_head = (gc_list **)malloc(sizeof(gc_list *) * (Node_num+1));
-
-	for(p = head->next; p!=head; p = p->next)
-		p_head[++i] = p;
+    p_head = (gc_list **)malloc(sizeof(gc_list *) * (Node_num+1));
+    
+    for(p = head->next; p!=head; p = p->next)
+        p_head[++i] = p;
 }
 
 void HeapAdjust(int s,int m)
