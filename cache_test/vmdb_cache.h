@@ -126,18 +126,17 @@ void HeapAdjust(int s,int m)
 
     rc= p_head[s];
 
-    for(j = 2*s;j <= m;j *= 2){
+    for(j = 2*s;j <= m;j *= 2) {
+        node_m = list_entry(p_head[j], page_node_t, list);
+        node_n = list_entry(p_head[j+1], page_node_t, list);
 
-		node_m = list_entry(p_head[j], page_node_t, list);
-		node_n = list_entry(p_head[j+1], page_node_t, list);
-
-		if( j < m && (node_m->pageAddr < node_n->pageAddr))
+        if( j < m && (node_m->pageAddr < node_n->pageAddr))
 			++j;
-
-		node_m = list_entry(p_head[j], page_node_t, list);
-		node_n = list_entry(rc, page_node_t, list);
-
-		if(node_m->pageAddr < node_n->pageAddr)
+        
+        node_m = list_entry(p_head[j], page_node_t, list);
+        node_n = list_entry(rc, page_node_t, list);
+        
+        if(node_m->pageAddr < node_n->pageAddr)
 			break;
 
 		p_head[s] = p_head[j];
