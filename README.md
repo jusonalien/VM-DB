@@ -29,7 +29,7 @@ If you use the instruction script to start the vm,adjust the parameters like thi
 ```
 Bypassing the host page cache system,and using our own lightweight cache system on the block layer.
 
-The following script is used to start our vms.
+Using this script start our vms.
 
 ```sh
 qemu -enable-kvm \
