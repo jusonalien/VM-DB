@@ -9,6 +9,12 @@
 
 We are now adding a cache system under the qemu-kvm virtulazation's block layer to get a higher performance which is named gear-cache,now the cache system is running properly.But it's performance still not achieved the requests :(.
 
+# Architecture
+
+[origin](https://github.com/jusonalien/VM-DB/blob/master/origin.png)
+
+[gear-cache](https://github.com/jusonalien/VM-DB/blob/master/gear-cache-Arch.png)
+
 # How to use it?
 
 just put the source files in the core code directory to the qemu's sorce code(qemu-2.4.0/block),replace the old raw-posix.c with our new raw-posix.c .Then just compile the qemu source code as usual
